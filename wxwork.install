@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the wechat module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function wxwork_schema() {
+    $schema['wxwork_app_config'] = array(
+        'description' => 'Stores wxwork request message items.',
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+                'description' => 'Primary Key: Unique wechat request message ID.',
+            ),
+            'app_id' => array(
+                'description' => t('企业微信中的appid.'),
+                'type' => 'varchar',
+                'length' => 30,
+                'not null' => TRUE,
+            ),
+            'secret' => array(
+                'description' => t('企业微信应用的secret.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'entrance' => array(
+                'description' => t('企业微信的应用入口.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'agent_id' => array(
+                'description' => t('企业微信的应用Agent_id.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'roles' => array(
+                'description' => t('企业微信应用用户权限对应Drupal的角色ID，以逗号分隔.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'matched_urls' => array(
+                'description' => "以此应用匹配的URL.",
+                'type' => 'varchar',
+                'length' => 2048,
+                'not null' => TRUE,
+            ),
+            'create_time' => array(
+                'description' => t('Create time of wechat request message.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    $schema['wxwork_access_token'] = array(
+        'description' => 'Stores wxwork access token.',
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+                'description' => 'Primary Key: Unique wxwork access token ID.',
+            ),
+            'app_id' => array(
+                'description' => t('企业微信 app ID.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'secret' => array(
+                'description' => t('企业微信应用的secret.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'token' => array(
+                'description' => t('企业微信 access token.'),
+                'type' => 'varchar',
+                'length' => 256,
+                'not null' => TRUE,
+            ),
+            'expire' => array(
+                'description' => t('The expire time of 企业微信 access token.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'create_time' => array(
+                'description' => t('The create time of 企业微信 access token.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}
+
